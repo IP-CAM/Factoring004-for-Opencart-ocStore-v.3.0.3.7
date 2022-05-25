@@ -111,6 +111,20 @@ class ControllerExtensionPaymentFactoring004 extends Controller
             return;
         }
 
+        if (isset($request['signature'])) {
+            require_once DIR_SYSTEM . 'library/factoring004/vendor/autoload.php';
+
+            $secretKey = $this->config->get('payment_factoring004_partner_code');
+            $validator = new \BnplPartners\Factoring004\Signature\PostLinkSignatureValidator($secretKey);
+
+            try {
+                $validator->validateData($request);
+            } catch (\BnplPartners\Factoring004\Exception\InvalidSignatureException $e) {
+                $this->jsonResponse(['success' => false, 'error' => 'Invalid signature'], 400, 'Bad Request');
+                return;
+            }
+        }
+
         foreach (static::REQUIRED_FIELDS as $field) {
             if (empty($request[$field]) || !is_string($field)) {
                 $this->jsonResponse(['success' => false, 'error' => $field . ' is invalid'], 400, 'Bad Request');
