@@ -49,8 +49,8 @@ class ComposerStaticInit03aff8b14f24355633c2ef2314fe7b23
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -83,6 +83,14 @@ class ComposerStaticInit03aff8b14f24355633c2ef2314fe7b23
     );
 
     public static $classMap = array (
+        'BnplPartners\\Factoring004Payment\\AbstractManager' => __DIR__ . '/../..' . '/src/AbstractManager.php',
+        'BnplPartners\\Factoring004Payment\\CancelManager' => __DIR__ . '/../..' . '/src/CancelManager.php',
+        'BnplPartners\\Factoring004Payment\\DebugLogger' => __DIR__ . '/../..' . '/src/DebugLogger.php',
+        'BnplPartners\\Factoring004Payment\\DebugLoggerFactory' => __DIR__ . '/../..' . '/src/DebugLoggerFactory.php',
+        'BnplPartners\\Factoring004Payment\\DeliveryManager' => __DIR__ . '/../..' . '/src/DeliveryManager.php',
+        'BnplPartners\\Factoring004Payment\\ManagerResponse' => __DIR__ . '/../..' . '/src/ManagerResponse.php',
+        'BnplPartners\\Factoring004Payment\\OrderManager' => __DIR__ . '/../..' . '/src/OrderManager.php',
+        'BnplPartners\\Factoring004Payment\\ReturnManager' => __DIR__ . '/../..' . '/src/ReturnManager.php',
         'BnplPartners\\Factoring004\\AbstractResource' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/AbstractResource.php',
         'BnplPartners\\Factoring004\\Api' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Api.php',
         'BnplPartners\\Factoring004\\ArrayInterface' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/ArrayInterface.php',
@@ -108,6 +116,7 @@ class ComposerStaticInit03aff8b14f24355633c2ef2314fe7b23
         'BnplPartners\\Factoring004\\Exception\\DataSerializationException' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Exception/DataSerializationException.php',
         'BnplPartners\\Factoring004\\Exception\\EndpointUnavailableException' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Exception/EndpointUnavailableException.php',
         'BnplPartners\\Factoring004\\Exception\\ErrorResponseException' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Exception/ErrorResponseException.php',
+        'BnplPartners\\Factoring004\\Exception\\InvalidSignatureException' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Exception/InvalidSignatureException.php',
         'BnplPartners\\Factoring004\\Exception\\NetworkException' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Exception/NetworkException.php',
         'BnplPartners\\Factoring004\\Exception\\OAuthException' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Exception/OAuthException.php',
         'BnplPartners\\Factoring004\\Exception\\PackageException' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Exception/PackageException.php',
@@ -134,6 +143,8 @@ class ComposerStaticInit03aff8b14f24355633c2ef2314fe7b23
         'BnplPartners\\Factoring004\\Response\\ErrorResponse' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Response/ErrorResponse.php',
         'BnplPartners\\Factoring004\\Response\\PreAppResponse' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Response/PreAppResponse.php',
         'BnplPartners\\Factoring004\\Response\\ValidationErrorResponse' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Response/ValidationErrorResponse.php',
+        'BnplPartners\\Factoring004\\Signature\\PostLinkSignatureCalculator' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Signature/PostLinkSignatureCalculator.php',
+        'BnplPartners\\Factoring004\\Signature\\PostLinkSignatureValidator' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Signature/PostLinkSignatureValidator.php',
         'BnplPartners\\Factoring004\\Transport\\AbstractTransport' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Transport/AbstractTransport.php',
         'BnplPartners\\Factoring004\\Transport\\GuzzleTransport' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Transport/GuzzleTransport.php',
         'BnplPartners\\Factoring004\\Transport\\PsrTransport' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/Transport/PsrTransport.php',
