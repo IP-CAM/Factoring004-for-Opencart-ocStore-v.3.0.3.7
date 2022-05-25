@@ -114,6 +114,10 @@ class ControllerExtensionPaymentFactoring004 extends Controller
         if (isset($request['signature'])) {
             require_once DIR_SYSTEM . 'library/factoring004/vendor/autoload.php';
 
+            \BnplPartners\Factoring004Payment\DebugLoggerFactory::create($this->registry)
+                ->createLogger()
+                ->debug(json_encode($request));
+
             $secretKey = $this->config->get('payment_factoring004_partner_code');
             $validator = new \BnplPartners\Factoring004\Signature\PostLinkSignatureValidator($secretKey);
 
