@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once DIR_SYSTEM . 'library/factoring004/vendor/autoload.php';
+
 /**
  * @property-read \Loader $load
  * @property-read \ModelCheckoutOrder $model_checkout_order
@@ -11,7 +13,7 @@ declare(strict_types=1);
  */
 class ControllerExtensionPaymentFactoring004 extends Controller
 {
-    const REQUIRED_FIELDS = ['billNumber', 'status', 'preappId'];
+    const REQUIRED_FIELDS = ['billNumber', 'status', 'preappId', 'signature'];
 
     public function index()
     {
@@ -42,7 +44,6 @@ class ControllerExtensionPaymentFactoring004 extends Controller
         try {
             $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], 2);
             $products = $this->model_checkout_order->getOrderProducts($this->session->data['order_id']);
-            require_once DIR_SYSTEM . 'library/factoring004/vendor/autoload.php';
             $response = \BnplPartners\Factoring004\Api::create(
                 $this->config->get('payment_factoring004_api_host'),
                 new \BnplPartners\Factoring004\Auth\BearerTokenAuth($this->config->get('payment_factoring004_preapp_token')),
@@ -111,29 +112,25 @@ class ControllerExtensionPaymentFactoring004 extends Controller
             return;
         }
 
-        if (isset($request['signature'])) {
-            require_once DIR_SYSTEM . 'library/factoring004/vendor/autoload.php';
-
-            \BnplPartners\Factoring004Payment\DebugLoggerFactory::create($this->registry)
-                ->createLogger()
-                ->debug(json_encode($request));
-
-            $secretKey = $this->config->get('payment_factoring004_partner_code');
-            $validator = new \BnplPartners\Factoring004\Signature\PostLinkSignatureValidator($secretKey);
-
-            try {
-                $validator->validateData($request);
-            } catch (\BnplPartners\Factoring004\Exception\InvalidSignatureException $e) {
-                $this->jsonResponse(['success' => false, 'error' => 'Invalid signature'], 400, 'Bad Request');
-                return;
-            }
-        }
-
         foreach (static::REQUIRED_FIELDS as $field) {
             if (empty($request[$field]) || !is_string($field)) {
                 $this->jsonResponse(['success' => false, 'error' => $field . ' is invalid'], 400, 'Bad Request');
                 return;
             }
+        }
+
+        \BnplPartners\Factoring004Payment\DebugLoggerFactory::create($this->registry)
+            ->createLogger()
+            ->debug(json_encode($request));
+
+        $secretKey = $this->config->get('payment_factoring004_partner_code');
+        $validator = new \BnplPartners\Factoring004\Signature\PostLinkSignatureValidator($secretKey);
+
+        try {
+            $validator->validateData($request);
+        } catch (\BnplPartners\Factoring004\Exception\InvalidSignatureException $e) {
+            $this->jsonResponse(['success' => false, 'error' => 'Invalid signature'], 400, 'Bad Request');
+            return;
         }
 
         $order = $this->model_checkout_order->getOrder($request['billNumber']);
