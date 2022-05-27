@@ -97,6 +97,21 @@
         <operation>
             <search>
                 <![CDATA[
+                    $this->response->setOutput($this->load->view('sale/order_form', $data));
+                ]]>
+            </search>
+            <add position="before" action="insert" offset="0">
+                <![CDATA[
+                    $data['factoring004_return_status_id'] = $this->config->get('payment_factoring004_return_order_status_id');
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+    <file path="admin/controller/sale/order.php">
+        <operation>
+            <search>
+                <![CDATA[
                     $this->response->setOutput($this->load->view('sale/order_info', $data));
                 ]]>
             </search>
@@ -304,11 +319,33 @@
         <operation>
             <search>
                 <![CDATA[
+                    $('#button-save').on('click'
+                ]]>
+            </search>
+            <add position="after" action="insert" offset="0">
+                <![CDATA[
+                    var returnStatusId = '{{ factoring004_return_status_id }}';
+                    var orderStatusId = $('#input-order-status').val();
+                    var amountAsked = !!$('#modal-factoring004-return-amount').attr('data-was-shown');
+
+                    if (returnStatusId === orderStatusId && !amountAsked) {
+                      $('#modal-factoring004-return-amount').modal({ backdrop: 'static' });
+                      return;
+                    }
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+    <file path="admin/view/template/sale/order_form.twig">
+        <operation>
+            <search>
+                <![CDATA[
                     data: $('select[name=\'payment_method\']
                 ]]>
             </search>
             <add position="replace" action="insert" offset="0">
-                <![CDATA[data: $('#factoring004_otp, select[name=\'payment_method\']]]>
+                <![CDATA[data: $('#factoring004_otp, #factoring004_amount, select[name=\'payment_method\']]]>
             </add>
         </operation>
     </file>
@@ -338,6 +375,7 @@
             <add position="after" action="insert" offset="0">
                 <![CDATA[
                     $('#btn-factoring004-otp').button('reset');
+                    $('#modal-factoring004-return-amount').removeAttr('data-was-shown');
                 ]]>
             </add>
         </operation>
@@ -371,7 +409,6 @@
             <add position="before" action="insert" offset="3">
                 <![CDATA[
                     if (json.otp) {
-                        $('#factoring004-group-amount').prop('hidden', !json.return);
                         $('#modal-factoring004-otp').modal({
                             backdrop: 'static',
                         });
@@ -393,6 +430,30 @@
             </search>
             <add position="before" action="insert" offset="0">
                 <![CDATA[
+                    <div id="modal-factoring004-return-amount" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="form-factoring004-return-amount" action="#" method="post">
+                                        <div class="form-group">
+                                            <label for="factoring004_return_amount">Amount</label>
+                                            <input type="number" id="factoring004_return_amount" class="form-control" placeholder="Enter return amount" min="0">
+                                            <span class="help-block">Leave this field empty if you want to full return the order</span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button class="btn btn-primary">Return</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div id="modal-factoring004-otp" class="modal fade" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -407,13 +468,8 @@
                                             <input type="text" id="factoring004_otp" name="factoring004_otp" class="form-control" placeholder="Enter OTP code" minlength="4" maxlength="4" required>
                                         </div>
 
-                                        <div id="factoring004-group-amount" class="form-group" hidden>
-                                            <label for="factoring004_amount">Amount</label>
-                                            <input type="number" id="factoring004_amount" name="factoring004_amount" class="form-control" placeholder="Enter return amount" min="0">
-                                            <span class="help-block">Leave this field empty if you want to full return the order</span>
-                                        </div>
-
                                         <div class="form-group">
+                                            <input type="hidden" id="factoring004_amount" name="factoring004_amount">
                                             <button id="btn-factoring004-otp" class="btn btn-primary">Check</button>
                                         </div>
                                     </form>
@@ -432,7 +488,17 @@
                                 e.preventDefault();
                                 $('#button-save').click();
                                 $('#btn-factoring004-otp').button('loading');
-                            })
+                            });
+
+                        $('#modal-factoring004-return-amount')
+                            .on('shown.bs.modal', () => $('#factoring004_return_amount').focus())
+                            .on('hidden.bs.modal', () => $('#factoring004_return_amount').val(''))
+                            .on('submit', e => {
+                                e.preventDefault();
+                                $('#factoring004_amount').val($('#factoring004_return_amount').val());
+                                $('#modal-factoring004-return-amount').attr('data-was-shown', '1').modal('hide');
+                                $('#button-save').click();
+                            });
                     </script>
                 ]]>
             </add>
