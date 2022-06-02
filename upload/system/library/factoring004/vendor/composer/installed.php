@@ -25,7 +25,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../bnpl-partners/factoring004',
             'aliases' => array(),
-            'reference' => 'ef84211dac7c6d2325cb00265353574c7f42c059',
+            'reference' => '34290cdafacde70eb89796197b2f8f3b4ef54bf1',
             'dev_requirement' => false,
         ),
         'guzzlehttp/guzzle' => array(
