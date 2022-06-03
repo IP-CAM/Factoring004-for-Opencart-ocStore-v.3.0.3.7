@@ -185,7 +185,6 @@
             <add position="after" action="insert" offset="0">
                 <![CDATA[
                     $('#btn-factoring004-otp').button('reset');
-                    $('#modal-factoring004-return-amount').removeAttr('data-was-shown');
                 ]]>
             </add>
         </operation>
@@ -293,6 +292,7 @@
                             .on('hidden.bs.modal', () => {
                                 $('#factoring004_otp').val('');
                                 $('#factoring004_amount').val('');
+                                $('#modal-factoring004-return-amount').removeAttr('data-was-shown');
                             })
                             .on('submit', e => {
                                 e.preventDefault();
@@ -375,7 +375,6 @@
             <add position="after" action="insert" offset="0">
                 <![CDATA[
                     $('#btn-factoring004-otp').button('reset');
-                    $('#modal-factoring004-return-amount').removeAttr('data-was-shown');
                 ]]>
             </add>
         </operation>
@@ -483,6 +482,7 @@
                             .on('hidden.bs.modal', () => {
                                 $('#factoring004_otp').val('');
                                 $('#factoring004_amount').val('');
+                                $('#modal-factoring004-return-amount').removeAttr('data-was-shown');
                             })
                             .on('submit', e => {
                                 e.preventDefault();
