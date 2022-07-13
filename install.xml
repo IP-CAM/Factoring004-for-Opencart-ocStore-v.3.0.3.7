@@ -520,4 +520,19 @@
             </add>
         </operation>
     </file>
+
+    <file path="admin/view/template/sale/order_info.twig">
+        <operation>
+            <search>
+                <![CDATA[
+                if (json['success']) {
+                ]]>
+            </search>
+            <add position="before" action="insert">
+                <![CDATA[
+                else
+                ]]>
+            </add>
+        </operation>
+    </file>
 </modification>
