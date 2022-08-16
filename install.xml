@@ -535,4 +535,37 @@
             </add>
         </operation>
     </file>
+
+    <file path="catalog/controller/checkout/checkout.php">
+        <operation>
+            <search>
+                <![CDATA[
+                    $data['header']
+                ]]>
+            </search>
+            <add position="after" action="insert">
+                <![CDATA[
+                    $data['factoring004Enabled'] = (bool) $this->config->get('payment_factoring004_status');
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+    <file path="catalog/view/theme/default/template/checkout/checkout.twig">
+        <operation>
+            <search>
+                <![CDATA[
+                    {{ header }}
+                ]]>
+            </search>
+            <add position="before" action="insert">
+                <![CDATA[
+                    {% if factoring004Enabled %}
+                        <link rel="stylesheet" href="catalog/view/theme/default/stylesheet/factoring004-schedule.0ebdbe1.css">
+                        <script src="catalog/view/javascript/factoring004-schedule.53c9ed8.js" async></script>
+                    {% endif %}
+                ]]>
+            </add>
+        </operation>
+    </file>
 </modification>
