@@ -10,6 +10,7 @@ require_once DIR_SYSTEM . 'library/factoring004/vendor/autoload.php';
  * @property-read \ModelExtensionPaymentFactoring004 $model_extension_payment_factoring004
  * @property-read \Config $config
  * @property-read \DB $db
+ * @property-read \Response $response
  */
 class ControllerExtensionPaymentFactoring004 extends Controller
 {
@@ -170,6 +171,11 @@ class ControllerExtensionPaymentFactoring004 extends Controller
         }
 
         $this->jsonResponse(compact('response'));
+    }
+
+    public function error(): void
+    {
+        $this->response->setOutput($this->load->view('extension/payment/factoring004_error'));
     }
 
     /**
