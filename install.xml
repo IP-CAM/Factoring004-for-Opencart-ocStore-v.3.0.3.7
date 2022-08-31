@@ -614,11 +614,36 @@
             </search>
             <add position="before" action="insert">
                 <![CDATA[
-                    if (isset($data['payment_methods']['factoring004']) && isset($this->session->data['order_id'])) {
-                        $this->load->model('checkout/order');
-                        $data['factoring004Total'] = (int) ceil($this->model_checkout_order->getOrder($this->session->data['order_id'])['total']);
-                    } else {
+                    if (empty($data['payment_methods']['factoring004'])) {
                         $data['factoring004Total'] = 0;
+                    } elseif (isset($total)) {
+                        $data['factoring004Total'] = (int) ceil($total);
+                    } else {
+                        $this->load->model('setting/extension');
+                        $total = 0;
+
+                        $sort_order = [];
+
+                        $results = $this->model_setting_extension->getExtensions('total');
+
+                        foreach ($results as $key => $value) {
+                            $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
+                        }
+
+                        array_multisort($sort_order, SORT_ASC, $results);
+
+                        foreach ($results as $result) {
+                            if ($this->config->get('total_' . $result['code'] . '_status')) {
+                                $this->load->model('extension/total/' . $result['code']);
+
+                                // We have to put the totals in an array so that they pass by reference.
+                                $this->{'model_extension_total_' . $result['code']}->getTotal([
+                                    'total' => &$total,
+                                ]);
+                            }
+                        }
+
+                        $data['factoring004Total'] = (int) ceil($total);
                     }
                 ]]>
             </add>
