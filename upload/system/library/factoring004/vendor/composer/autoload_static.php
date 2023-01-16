@@ -89,6 +89,7 @@ class ComposerStaticInit63a580bf4761ccef66a06f918d731e6a
         'BnplPartners\\Factoring004Payment\\DebugLoggerFactory' => __DIR__ . '/../..' . '/src/DebugLoggerFactory.php',
         'BnplPartners\\Factoring004Payment\\DeliveryManager' => __DIR__ . '/../..' . '/src/DeliveryManager.php',
         'BnplPartners\\Factoring004Payment\\ManagerResponse' => __DIR__ . '/../..' . '/src/ManagerResponse.php',
+        'BnplPartners\\Factoring004Payment\\ModalWidgetUrlResolver' => __DIR__ . '/../..' . '/src/ModalWidgetUrlResolver.php',
         'BnplPartners\\Factoring004Payment\\OrderManager' => __DIR__ . '/../..' . '/src/OrderManager.php',
         'BnplPartners\\Factoring004Payment\\ReturnManager' => __DIR__ . '/../..' . '/src/ReturnManager.php',
         'BnplPartners\\Factoring004\\AbstractEnum' => __DIR__ . '/..' . '/bnpl-partners/factoring004/src/AbstractEnum.php',

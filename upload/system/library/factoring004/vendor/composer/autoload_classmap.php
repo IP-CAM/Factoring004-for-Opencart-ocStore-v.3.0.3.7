@@ -12,6 +12,7 @@ return array(
     'BnplPartners\\Factoring004Payment\\DebugLoggerFactory' => $baseDir . '/src/DebugLoggerFactory.php',
     'BnplPartners\\Factoring004Payment\\DeliveryManager' => $baseDir . '/src/DeliveryManager.php',
     'BnplPartners\\Factoring004Payment\\ManagerResponse' => $baseDir . '/src/ManagerResponse.php',
+    'BnplPartners\\Factoring004Payment\\ModalWidgetUrlResolver' => $baseDir . '/src/ModalWidgetUrlResolver.php',
     'BnplPartners\\Factoring004Payment\\OrderManager' => $baseDir . '/src/OrderManager.php',
     'BnplPartners\\Factoring004Payment\\ReturnManager' => $baseDir . '/src/ReturnManager.php',
     'BnplPartners\\Factoring004\\AbstractEnum' => $vendorDir . '/bnpl-partners/factoring004/src/AbstractEnum.php',
