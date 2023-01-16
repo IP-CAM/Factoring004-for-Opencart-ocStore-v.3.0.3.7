@@ -540,12 +540,28 @@
         <operation>
             <search>
                 <![CDATA[
+                    <?php
+                ]]>
+            </search>
+            <add position="after" action="insert" offset="0">
+                <![CDATA[
+                    require_once DIR_SYSTEM . 'library/factoring004/vendor/autoload.php';
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[
                     $data['header']
                 ]]>
             </search>
             <add position="after" action="insert">
                 <![CDATA[
                     $data['factoring004Enabled'] = (bool) $this->config->get('payment_factoring004_status');
+
+                    if ($this->config->get('payment_factoring004_payment_gateway_type') === 'modal') {
+                        $data['factoring004PaymentWidgetLink'] = \BnplPartners\Factoring004Payment\ModalWidgetUrlResolver::create($this->registry)->resolve();
+                    }
                 ]]>
             </add>
         </operation>
@@ -563,6 +579,9 @@
                     {% if factoring004Enabled %}
                         <link rel="stylesheet" href="catalog/view/theme/default/stylesheet/factoring004-schedule.0ebdbe1.css">
                         <script src="catalog/view/javascript/factoring004-schedule.53c9ed8.js" async></script>
+                        {% if factoring004PaymentWidgetLink is defined %}
+                            <script src="{{ factoring004PaymentWidgetLink }}"></script>
+                        {% endif %}
                     {% endif %}
                 ]]>
             </add>
