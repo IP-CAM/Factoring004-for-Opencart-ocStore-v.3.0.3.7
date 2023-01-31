@@ -13,6 +13,8 @@ $_['text_factoring004']		            = '<img src="view/image/payment/factoring00
 // Text
 $_['text_extensions']     				= 'Расширение';
 $_['text_edit']          				= 'Редактирование';
+$_['text_payment_gateway_type_redirect'] = 'Redirect';
+$_['text_payment_gateway_type_modal'] = 'Modal';
 
 // Entry
 $_['entry_api_host']                    = 'API Host';
@@ -26,6 +28,7 @@ $_['entry_partner_website']		 		= 'Partner Website';
 $_['entry_agreement_file']		 		= 'Agreement File';
 $_['entry_delivery_items']		 		= 'Способы доставки для подтверждения через смс';
 $_['entry_status']		                = 'Статус';
+$_['entry_payment_gateway_type']        = 'Payment Gateway Type';
 
 // Help
 $_['help_total_min']		            = 'Минимальная сумма заказа 6000. Ниже этой суммы метод будет недоступен.';
