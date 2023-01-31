@@ -3,7 +3,7 @@
 ## Установка
 
 * Создайте резервную копию вашего магазина и базы данных
-* Загрузите [factoring004.ocmod.zip](https://github.com/bnpl-partners/factoring004-opencart.git?raw=true)
+* Загрузите [factoring004.ocmod.zip](https://github.com/bnpl-kz/factoring004-opencart/archive/refs/heads/dev.zip)
 * Разархивируйте архив, затем запакуйте папку **upload** и файл **install.xml** в zip архив
 * Название архива должно быть **factoring004.ocmod**
 * Зайдите в панель администратора OpenCart.ocStore (www.yoursite.com/admin/)
@@ -38,7 +38,7 @@
 * Заполните данные
 * нажмите _Сохранить_
 
-![Settings](https://github.com/bnpl-partners/factoring004-opencart/raw/main/doc/settings2.png)
+![Settings](https://github.com/bnpl-kz/factoring004-opencart/blob/dev/doc/settings2.png)
 
 Модуль настроен и готов к работе.
 
