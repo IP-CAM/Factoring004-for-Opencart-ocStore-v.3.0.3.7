@@ -111,7 +111,6 @@ class ControllerExtensionPaymentFactoring004 extends Controller
         }
 
         $this->load->model('checkout/order');
-        $this->load->model('extension/payment/factoring004');
 
         try {
             $request = json_decode(file_get_contents('php://input'), true, 512, JSON_THROW_ON_ERROR);

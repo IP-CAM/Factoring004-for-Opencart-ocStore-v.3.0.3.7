@@ -10,7 +10,6 @@ class ControllerExtensionPaymentFactoring004 extends Controller {
         $this->load->language('extension/payment/factoring004');
         $this->document->setTitle($this->language->get('heading_title'));
         $this->load->model('setting/setting');
-        $this->load->model('extension/payment/factoring004');
         $this->load->model('localisation/order_status');
 
         if (($this->request->server['REQUEST_METHOD'] === 'POST') && $this->validate()) {
