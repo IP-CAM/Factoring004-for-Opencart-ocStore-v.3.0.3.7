@@ -38,7 +38,7 @@
 * Заполните данные
 * нажмите _Сохранить_
 
-![Settings](https://github.com/bnpl-kz/factoring004-opencart/blob/dev/doc/settings2.png)
+![Settings](https://github.com/bnpl-kz/factoring004-opencart/blob/light-plugin/doc/settings2.png)
 
 Модуль настроен и готов к работе.
 
