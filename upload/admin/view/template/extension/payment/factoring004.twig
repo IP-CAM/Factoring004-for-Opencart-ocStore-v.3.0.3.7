@@ -119,77 +119,9 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group required">
-                        <label class="col-sm-2 control-label" for="input-delivery-order-status">{{ entry_delivery_order_status }}</label>
-                        <div class="col-sm-10">
-                            <select name="payment_factoring004_delivery_order_status_id" id="input-delivery-order-status" class="form-control">
-                                {% for order_status in order_statuses %}
-                                    {% if order_status.order_status_id == payment_factoring004_delivery_order_status_id %}
-                                        <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
-                                    {% else %}
-                                        <option {% if (order_status.name in ['Доставлено','Shipped']) %} selected="selected" {% endif %} value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group required">
-                        <label class="col-sm-2 control-label" for="input-return-order-status">{{ entry_return_order_status }}</label>
-                        <div class="col-sm-10">
-                            <select name="payment_factoring004_return_order_status_id" id="input-return-order-status" class="form-control">
-                                {% for order_status in order_statuses %}
-                                    {% if order_status.order_status_id == payment_factoring004_return_order_status_id %}
-                                        <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
-                                    {% else %}
-                                        <option {% if (order_status.name in ['Возврат','Denied']) %} selected="selected" {% endif %} value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group required">
-                        <label class="col-sm-2 control-label" for="input-cancel-order-status">{{ entry_cancel_order_status }}</label>
-                        <div class="col-sm-10">
-                            <select name="payment_factoring004_cancel_order_status_id" id="input-cancel-order-status" class="form-control">
-                                {% for order_status in order_statuses %}
-                                    {% if order_status.order_status_id == payment_factoring004_cancel_order_status_id %}
-                                        <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
-                                    {% else %}
-                                        <option {% if (order_status.name in ['Отменено','Canceled']) %} selected="selected" {% endif %} value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-delivery">{{ entry_delivery_items }}</label>
+                        <label class="col-sm-2 control-label">{{ entry_debug_mode }}</label>
                         <div class="col-sm-10">
-                            <div class="checkbox">
-                                {% for delivery in deliveries %}
-                                    <label style="display:block;">
-                                        <input style="position:absolute;" id="input-delivery" {% for item in payment_factoring004_delivery %} {% if item == delivery.id %} checked {% endif %}  {% endfor %} type="checkbox" name="payment_factoring004_delivery[]" value="{{ delivery.id }}">
-                                        {{ delivery.name }}
-                                    </label>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-agreement-file">{{ entry_agreement_file }}</label>
-                        <div class="col-sm-10">
-                            {% if payment_factoring004_agreement_file is not empty %}
-                                <input type="hidden" name="payment_factoring004_agreement_file" value="{{ payment_factoring004_agreement_file }}">
-                                <a class="btn btn-default" target="_blank" href="../image/{{ payment_factoring004_agreement_file }}"><i class="fa fa-file-pdf-o"></i></a>
-                                <button data-loading-text="{{ text_loading }}" id="payment-factoring004-agreement-button" type="button" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Удалить"><i class="fa fa-close"></i></button>
-                            {% else %}
-                                <button type="button" class="btn bg-primary" onclick="document.getElementById('get-agreement-file').click()">{{ text_button_agreement_file }}</button>
-                                <input name="payment_factoring004_agreement_file" type="file" id="get-agreement-file" style="display:none">
-                                <br><small id="input-agreement-file-help" class="form-text text-muted">{{ text_agreement_file }}</small>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-10 col-sm-offset-2">
                             <div class="checkbox">
                                 <label>
                                     {% if payment_factoring004_debug_mode %}
@@ -197,7 +129,7 @@
                                     {% else %}
                                         <input type="checkbox" name="payment_factoring004_debug_mode">
                                     {% endif %}
-                                    {{ entry_debug_mode }}
+                                    {{ entry_debug_mode_name }}
                                 </label>
                             </div>
                         </div>
@@ -240,32 +172,3 @@
     </div>
 </div>
 {{ footer }}
-
-<script>
-    let button = $('#payment-factoring004-agreement-button');
-    button.click(function () {
-        let filename = button.prev().attr('href').split('/').pop();
-        $.ajax({
-            url: window.location.href + '&filename=' + filename,
-            type: 'DELETE',
-            dataType: 'json',
-            beforeSend: function () {
-                button.button('loading');
-            },
-            complete: function () {
-                button.button('reset');
-                location.reload();
-            },
-            success: function(response) {
-                if (response.success) {
-                    alert(response.message)
-                } else {
-                    alert(response.message)
-                }
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText)
-            }
-        })
-    })
-</script>

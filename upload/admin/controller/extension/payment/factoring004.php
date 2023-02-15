@@ -13,24 +13,9 @@ class ControllerExtensionPaymentFactoring004 extends Controller {
         $this->load->model('localisation/order_status');
 
         if (($this->request->server['REQUEST_METHOD'] === 'POST') && $this->validate()) {
-            $this->request->post['payment_factoring004_agreement_file'] = isset($this->request->files['payment_factoring004_agreement_file']) ?
-                $this->agreementFileUpload($this->request->files['payment_factoring004_agreement_file'])
-                : $this->request->post['payment_factoring004_agreement_file'];
-            $this->request->post['payment_factoring004_delivery'] = isset($this->request->post['payment_factoring004_delivery']) ?
-                implode(',',$this->request->post['payment_factoring004_delivery']) : '';
             $this->model_setting_setting->editSetting('payment_factoring004', $this->request->post);
             $this->session->data['success'] = $this->language->get('text_success');
             $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
-        }
-
-        if (($this->request->server['REQUEST_METHOD'] === 'DELETE')) {
-            if (!$this->agreementFileDelete($this->request->get['filename'])) {
-                echo json_encode(['success'=>false,'message'=>$this->language->get('error_agreement_file_delete')]);
-            } else {
-                $this->model_setting_setting->editSettingValue('payment_factoring004', 'payment_factoring004_agreement_file');
-                echo json_encode(['success'=>true,'message'=>$this->language->get('success_agreement_file_delete')]);
-            }
-            return;
         }
 
         $data['breadcrumbs'] = array();
@@ -157,36 +142,6 @@ class ControllerExtensionPaymentFactoring004 extends Controller {
             $data['payment_factoring004_unpaid_order_status_id'] = $this->config->get('payment_factoring004_unpaid_order_status_id');
         }
 
-        if (isset($this->request->post['payment_factoring004_delivery_order_status_id'])) {
-            $data['payment_factoring004_delivery_order_status_id'] = $this->request->post['payment_factoring004_delivery_order_status_id'];
-        } else {
-            $data['payment_factoring004_delivery_order_status_id'] = $this->config->get('payment_factoring004_delivery_order_status_id');
-        }
-
-        if (isset($this->request->post['payment_factoring004_return_order_status_id'])) {
-            $data['payment_factoring004_return_order_status_id'] = $this->request->post['payment_factoring004_return_order_status_id'];
-        } else {
-            $data['payment_factoring004_return_order_status_id'] = $this->config->get('payment_factoring004_return_order_status_id');
-        }
-
-        if (isset($this->request->post['payment_factoring004_cancel_order_status_id'])) {
-            $data['payment_factoring004_cancel_order_status_id'] = $this->request->post['payment_factoring004_cancel_order_status_id'];
-        } else {
-            $data['payment_factoring004_cancel_order_status_id'] = $this->config->get('payment_factoring004_cancel_order_status_id');
-        }
-
-        if (isset($this->request->post['payment_factoring004_delivery'])) {
-            $data['payment_factoring004_delivery'] = explode(',',$this->request->post['payment_factoring004_delivery']);
-        } else {
-            $data['payment_factoring004_delivery'] = explode(',',$this->config->get('payment_factoring004_delivery'));
-        }
-
-        if (isset($this->request->post['payment_factoring004_agreement_file'])) {
-            $data['payment_factoring004_agreement_file'] = $this->request->post['payment_factoring004_agreement_file'];
-        } else {
-            $data['payment_factoring004_agreement_file'] = $this->config->get('payment_factoring004_agreement_file');
-        }
-
         if (isset($this->request->post['payment_factoring004_debug_mode'])) {
             $data['payment_factoring004_debug_mode'] = $this->request->post['payment_factoring004_debug_mode'];
         } else {
@@ -207,7 +162,6 @@ class ControllerExtensionPaymentFactoring004 extends Controller {
 
         $data['text_loading'] = $this->language->get('text_loading');
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
-        $data['deliveries'] = $this->getDeliveryItems();
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
@@ -246,54 +200,5 @@ class ControllerExtensionPaymentFactoring004 extends Controller {
         }
 
         return !$this->error;
-    }
-
-    private function getDeliveryItems()
-    {
-        $this->load->model('setting/extension');
-        $extensions = $this->model_setting_extension->getInstalled('shipping');
-
-        foreach ($extensions as $key => $value) {
-            if (!is_file(DIR_APPLICATION . 'controller/extension/shipping/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/shipping/' . $value . '.php')) {
-                $this->model_setting_extension->uninstall('shipping', $value);
-                unset($extensions[$key]);
-            }
-        }
-
-        $deliveries = array();
-        $files = glob(DIR_APPLICATION . 'controller/extension/shipping/*.php');
-
-        if ($files) {
-            foreach ($files as $file) {
-                $extension = basename($file, '.php');
-                $this->load->language('extension/shipping/' . $extension, 'extension');
-                if ($this->config->get('shipping_' . $extension . '_status')) {
-                    $deliveries[] = array(
-                        'id'         => $extension,
-                        'name'       => $this->language->get('extension')->get('heading_title')
-                    );
-                }
-            }
-        }
-        return $deliveries;
-    }
-
-    private function agreementFileUpload($agreement)
-    {
-        $filename = '';
-        if ($agreement['tmp_name']) {
-            $ext = pathinfo($agreement['name'], PATHINFO_EXTENSION);
-            $filename = basename($agreement['name'],'.'.$ext) . '_' . token(32) . '.' . $ext;
-            move_uploaded_file($agreement['tmp_name'], DIR_IMAGE . $filename);
-        }
-        return $filename;
-    }
-
-    private function agreementFileDelete($filename)
-    {
-        if (file_exists(DIR_IMAGE . $filename)) {
-            return unlink(DIR_IMAGE . $filename);
-        }
-        return true;
     }
 }

@@ -10,8 +10,6 @@ $_['text_edit']                         = 'Редактирование';
 $_['text_pay']			                = 'Рассрочка 0-0-4';
 $_['text_factoring004']		            = '<img src="view/image/payment/factoring004.png" alt="Factoring004" title="Factoring004" style="border: 1px solid #EEEEEE;" />';
 $_['text_extensions']     				= 'Расширение';
-$_['text_agreement_file']		        = 'Загрузите файл оферты, если вам необходимо его отобразить клиенту';
-$_['text_button_agreement_file']     	= 'Выберите файл';
 $_['text_payment_gateway_type_redirect'] = 'Перенаправление';
 $_['text_payment_gateway_type_modal'] = 'Модальное окно';
 
@@ -24,15 +22,11 @@ $_['entry_partner_code']				= 'Partner Code';
 $_['entry_point_code']				 	= 'Point Code';
 $_['entry_partner_email']	 		    = 'Partner Email';
 $_['entry_partner_website']		 		= 'Partner Website';
-$_['entry_agreement_file']		 		= 'Файл оферты';
-$_['entry_delivery_items']		 		= 'Способы доставки для подтверждения через смс';
 $_['entry_status']		                = 'Статус';
 $_['entry_paid_order_status']           = 'Статус оплаченных заказов';
 $_['entry_unpaid_order_status']         = 'Статус неуспешных заказов';
-$_['entry_delivery_order_status']       = 'Статус доставленных заказов';
-$_['entry_return_order_status']         = 'Статус возвращенных заказов';
-$_['entry_cancel_order_status']         = 'Статус отмененных заказов';
-$_['entry_debug_mode']                  = 'Включить режим отладки';
+$_['entry_debug_mode']                  = 'Режим отладки';
+$_['entry_debug_mode_name']             = 'Включить/Выключить';
 $_['entry_payment_gateway_type']        = 'Вид интерфейса клиентского пути';
 
 // Help
@@ -47,18 +41,3 @@ $_['error_delivery_token']              = 'Необходимо указать O
 $_['error_partner_name']                = 'Необходимо указать Partner Name';
 $_['error_partner_code']				= 'Необходимо указать Partner Code';
 $_['error_point_code']				 	= 'Необходимо указать Point Code';
-$_['error_agreement_file']		 		= 'Необходимо загрузить файл политики';
-$_['error_agreement_file_delete']		= 'Неудача!';
-
-
-// Success
-$_['success_agreement_file_delete']		= 'Успех!';
-
-// Return and OTP
-$_['text_return_amount'] = 'Сумма';
-$_['text_return_enter_amount'] = 'Введите сумму возврата';
-$_['text_return_amount_helper'] = 'Оставьте это поле пустым или укажите 0 для полного возврата. Иначе будет частичный возврат.';
-$_['text_return_button'] = 'Возврат';
-$_['text_check_otp_title'] = 'Проверить OTP';
-$_['text_check_otp_enter_otp'] = 'Введите OTP код';
-$_['text_check_otp_button'] = 'Проверить';
