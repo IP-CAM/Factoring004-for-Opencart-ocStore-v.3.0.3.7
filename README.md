@@ -3,7 +3,7 @@
 ## Установка
 
 * Создайте резервную копию вашего магазина и базы данных
-* Загрузите [factoring004.ocmod.zip](https://github.com/bnpl-kz/factoring004-opencart/archive/refs/heads/dev.zip)
+* Загрузите [factoring004.ocmod.zip](https://github.com/bnpl-kz/factoring004-opencart/archive/refs/heads/light-plugin.zip)
 * Разархивируйте архив, затем запакуйте папку **upload** и файл **install.xml** в zip архив
 * Название архива должно быть **factoring004.ocmod**
 * Зайдите в панель администратора OpenCart.ocStore (www.yoursite.com/admin/)
