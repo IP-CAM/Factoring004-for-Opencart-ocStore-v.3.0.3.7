@@ -15,5 +15,6 @@ return array(
     'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
     'BnplPartners\\Factoring004\\' => array($vendorDir . '/bnpl-partners/factoring004/src'),
+    'BnplPartners\\Factoring004RectorRules\\' => array($vendorDir . '/bnpl-partners/factoring004/rector/rules'),
     'BnplPartners\\Factoring004Payment\\' => array($baseDir . '/src'),
 );
