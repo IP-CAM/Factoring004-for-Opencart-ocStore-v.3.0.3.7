@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '82e95ba8baa0073b53a9c7a0dd6bd60ed000b020',
+        'reference' => '6c2c43f70970d842d803d787100fc557009ed101',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '82e95ba8baa0073b53a9c7a0dd6bd60ed000b020',
+            'reference' => '6c2c43f70970d842d803d787100fc557009ed101',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -22,7 +22,7 @@
         'bnpl-partners/factoring004' => array(
             'pretty_version' => '3.0.0',
             'version' => '3.0.0.0',
-            'reference' => '9377aabc5b360271aa79c7173fd8711d0bf7d06c',
+            'reference' => 'cd1ace1193abe46ad18711115c0ec0e5b910f91c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../bnpl-partners/factoring004',
             'aliases' => array(),
