@@ -11,6 +11,7 @@ use BnplPartners\Factoring004\Transport\TransportInterface;
 use Config;
 use Log;
 use Registry;
+use Cache;
 
 abstract class AbstractManager
 {
