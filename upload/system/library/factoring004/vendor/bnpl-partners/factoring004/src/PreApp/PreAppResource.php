@@ -15,6 +15,18 @@ use BnplPartners\Factoring004\Transport\ResponseInterface;
 
 class PreAppResource extends AbstractResource
 {
+    private $preappPath = '/bnpl/v3/preapp';
+
+    /**
+     * @param string $preappPath
+     * @return PreAppResource
+     */
+    public function setPreappPath($preappPath)
+    {
+        $this->preappPath = $preappPath;
+        return $this;
+    }
+
     /**
      * @throws \BnplPartners\Factoring004\Exception\AuthenticationException
      * @throws \BnplPartners\Factoring004\Exception\EndpointUnavailableException
@@ -28,7 +40,7 @@ class PreAppResource extends AbstractResource
      */
     public function preApp(PreAppMessage $data)
     {
-        $response = $this->postRequest('/bnpl/v2/preapp', $data->toArray());
+        $response = $this->postRequest($this->preappPath, $data->toArray());
 
         if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
             return PreAppResponse::createFromArray($response->getBody()['data']);
@@ -52,6 +64,10 @@ class PreAppResource extends AbstractResource
     {
         $data = $response->getBody();
 
+        if ($response->getStatusCode() === 401) {
+            throw new AuthenticationException('', isset($data['message']) ? $data['message'] : '', $data['code']);
+        }
+
         if (isset($data['error'])) {
             $data = $data['error'];
 
@@ -66,12 +82,6 @@ class PreAppResource extends AbstractResource
 
         if (empty($data['code'])) {
             throw new UnexpectedResponseException($response, isset($data['message']) ? $data['message'] : 'Unexpected response schema');
-        }
-
-        $code = (int) $data['code'];
-
-        if (in_array($code, static::AUTH_ERROR_CODES, true)) {
-            throw new AuthenticationException(isset($data['description']) ? $data['description'] : '', isset($data['message']) ? $data['message'] : '', $code);
         }
 
         /** @psalm-suppress ArgumentTypeCoercion */
